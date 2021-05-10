@@ -26,7 +26,9 @@ while keep_moving:
 
     snake.move()
 
-    if snake.snake[0].pos()[0] > 280:
+    if snake.head.pos()[0] > 290 or snake.head.pos()[0] < -290:
+        keep_moving = False
+    elif snake.head.pos()[1] > 290 or snake.head.pos()[1] < -290:
         keep_moving = False
 
 wn.exitonclick()
