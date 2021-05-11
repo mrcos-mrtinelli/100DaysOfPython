@@ -39,10 +39,8 @@ while keep_moving:
         keep_moving = False
         score.game_over()
 
-    for part in snake.snake:
-        if part == snake.head:
-            pass
-        elif snake.head.distance(part) < 10:
+    for part in snake.snake[1:len(snake.snake) - 1]:
+        if snake.head.distance(part) < 10:
             keep_moving = False
             score.game_over()
 
