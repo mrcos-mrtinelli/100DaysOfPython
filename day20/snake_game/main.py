@@ -32,11 +32,19 @@ while keep_moving:
 
     if snake.head.distance(food) < 15:
         food.new_food()
+        snake.extend()
+        score.increase_score()
 
-    if snake.head.pos()[0] > 290 or snake.head.pos()[0] < -290:
+    if snake.head.xcor() > 290 or snake.head.xcor() < -290 or snake.head.ycor() > 290 or snake.head.ycor() < -290:
         keep_moving = False
-    elif snake.head.pos()[1] > 290 or snake.head.pos()[1] < -290:
-        keep_moving = False
+        score.game_over()
+
+    for part in snake.snake:
+        if part == snake.head:
+            pass
+        elif snake.head.distance(part) < 10:
+            keep_moving = False
+            score.game_over()
 
 wn.exitonclick()
 
