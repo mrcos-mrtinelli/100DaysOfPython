@@ -1,6 +1,7 @@
 from turtle import Screen
 from snake import Snake
 from food import Food
+from scoreboard import Scoreboard
 import time
 
 # setup screen
@@ -14,6 +15,7 @@ wn.listen()
 # setup snake
 snake = Snake()
 food = Food()
+score = Scoreboard()
 
 wn.onkey(snake.snake_up, "Up")
 wn.onkey(snake.snake_left, "Left")
@@ -29,7 +31,7 @@ while keep_moving:
     snake.move()
 
     if snake.head.distance(food) < 15:
-        print("nomnomnom")
+        food.new_food()
 
     if snake.head.pos()[0] > 290 or snake.head.pos()[0] < -290:
         keep_moving = False
