@@ -20,9 +20,6 @@ import pandas
 
 SQUIRREL_CENSUS_CSV = "2018_Central_Park_Squirrel_Census_-_Squirrel_Data.csv"
 
-
-# grouped_by_fur_color = data.groupby(by=["Primary Fur Color"], dropna=True).transform("count")
-# data_dict[color] = data[data["Primary Fur Color"] == color].count()[0]
 data = pandas.read_csv(SQUIRREL_CENSUS_CSV)
 fur_colors = (data["Primary Fur Color"]).dropna().unique()
 data_dict = {
