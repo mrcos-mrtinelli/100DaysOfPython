@@ -1,4 +1,5 @@
 from tkinter import *
+
 # ---------------------------- CONSTANTS ------------------------------- #
 PINK = "#e2979c"
 RED = "#e7305b"
@@ -9,22 +10,41 @@ WORK_MIN = 25
 SHORT_BREAK_MIN = 5
 LONG_BREAK_MIN = 20
 
-# ---------------------------- TIMER RESET ------------------------------- # 
 
-# ---------------------------- TIMER MECHANISM ------------------------------- # 
+# ---------------------------- TIMER RESET ------------------------------- #
+
+# ---------------------------- TIMER MECHANISM ------------------------------- #
+def start():
+    print("start timer")
+
+
+def reset():
+    print("reset timer!")
+
 
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- # 
 
 # ---------------------------- UI SETUP ------------------------------- #
-tomato_img = PhotoImage(file="tomato.png")
-
 window = Tk()
 window.title("Pomodoro Timer")
 window.config(padx=100, pady=50, bg=YELLOW)
 
+timer_label = Label(text="Timer", font=(FONT_NAME, 35, "bold"), bg=YELLOW, fg=GREEN)
+timer_label.grid(column=1, row=0)
+
+tomato_img = PhotoImage(file="tomato.png")
 canvas = Canvas(width=200, height=224, bg=YELLOW, highlightthickness=0)
 canvas.create_image(100, 112, image=tomato_img)
 canvas.create_text(103, 130, text="00:00", fill="white", font=(FONT_NAME, 35, "bold"))
-canvas.pack()
+canvas.grid(column=1, row=1)
+
+start_btn = Button(text="Start", highlightbackground=YELLOW, command=start)
+start_btn.grid(column=0, row=2)
+
+reset_btn = Button(text="Reset", highlightbackground=YELLOW, command=reset)
+reset_btn.grid(column=2, row=2)
+
+check_label = Label(text="✔", font=(FONT_NAME, 35, "bold"), bg=YELLOW, fg=GREEN)
+check_label.grid(column=1, row=3)
 
 window.mainloop()
