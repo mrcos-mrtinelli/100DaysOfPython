@@ -13,12 +13,15 @@ LONG_BREAK_MIN = 4
 is_work = True
 reps = 0
 completed = ""
+timer = None
 
 
 # ---------------------------- TIMER RESET ------------------------------- #
 def reset_timer():
     global is_work, reps
+    window.after_cancel(timer)
     timer_title.config(text="Ready?", fg=GREEN)
+    canvas.itemconfig(timer_label, text="00:00")
     check_label.config(text="")
     is_work = True
     reps = 0
@@ -39,14 +42,14 @@ def start_timer():
 
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- #
 def countdown(count):
-    global is_work, reps, completed
+    global is_work, reps, completed, timer
     minutes = count // 60
     seconds = count % 60
     time_str = "{:02d}:{:02d}".format(minutes, seconds)
     canvas.itemconfig(timer_label, text=time_str)
 
     if count > 0:
-        window.after(10, countdown, count - 1)
+        timer = window.after(10, countdown, count - 1)
     elif reps == 4:
         timer_title.config(text="Completed!", fg=GREEN)
     else:
