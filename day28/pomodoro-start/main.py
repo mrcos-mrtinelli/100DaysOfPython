@@ -12,6 +12,7 @@ LONG_BREAK_MIN = 4
 
 is_work = True
 reps = 0
+completed = ""
 
 
 # ---------------------------- TIMER RESET ------------------------------- #
@@ -38,20 +39,22 @@ def start_timer():
 
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- #
 def countdown(count):
-    global is_work, reps
+    global is_work, reps, completed
     minutes = count // 60
     seconds = count % 60
     time_str = "{:02d}:{:02d}".format(minutes, seconds)
     canvas.itemconfig(timer_label, text=time_str)
+
     if count > 0:
         window.after(10, countdown, count - 1)
     elif reps == 4:
         timer_title.config(text="Completed!", fg=GREEN)
-        check_label.config(text="✔")
     else:
         if is_work:
             reps += 1
+            completed += "✔"
         is_work = not is_work
+        check_label.config(text=completed)
         start_timer()
 
 
@@ -75,7 +78,7 @@ start_btn.grid(column=0, row=2)
 reset_btn = Button(text="Reset", highlightbackground=YELLOW, command=reset_timer)
 reset_btn.grid(column=2, row=2)
 
-check_label = Label(text="", font=(FONT_NAME, 35, "bold"), bg=YELLOW, fg=GREEN)
+check_label = Label(font=(FONT_NAME, 35, "bold"), bg=YELLOW, fg=GREEN)
 check_label.grid(column=1, row=3)
 
 window.mainloop()
