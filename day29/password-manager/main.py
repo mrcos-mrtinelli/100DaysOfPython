@@ -33,8 +33,8 @@ username_input.grid(column=1, row=2, columnspan=2)
 password_input.grid(column=1, row=3)
 
 # Buttons
-password_generate_btn = Button(text="Generate Password")
-add_btn = Button(width=36, text="Add")
+password_generate_btn = Button(width=13, text="Generate Password")
+add_btn = Button(width=35, text="Add")
 # - Positions
 password_generate_btn.grid(column=2, row=3)
 add_btn.grid(column=1, row=4, columnspan=2)
