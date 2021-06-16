@@ -6,42 +6,68 @@ RED = "#e7305b"
 GREEN = "#9bdeac"
 YELLOW = "#f7f5dd"
 FONT_NAME = "Courier"
-WORK_MIN = 25
-SHORT_BREAK_MIN = 5
+WORK_MIN = 5
+SHORT_BREAK_MIN = 3
 LONG_BREAK_MIN = 20
+
+is_work = True
+reps = 0
 
 
 # ---------------------------- TIMER RESET ------------------------------- #
 
 # ---------------------------- TIMER MECHANISM ------------------------------- #
-def start():
-    print("start timer")
+def start_timer():
+    if is_work:
+        timer_title.config(text="Work!")
+        countdown(WORK_MIN * 60)
+    elif reps < 4:
+        timer_title.config(text="Short Break!")
+        countdown(SHORT_BREAK_MIN * 60)
+    else:
+        timer_title.config(text="Long Break!")
+        countdown(LONG_BREAK_MIN * 60)
 
 
-def reset():
+def reset_timer():
     print("reset timer!")
 
 
-# ---------------------------- COUNTDOWN MECHANISM ------------------------------- # 
+# ---------------------------- COUNTDOWN MECHANISM ------------------------------- #
+def countdown(count):
+    global reps
+    global is_work
+    minutes = count // 60
+    seconds = count % 60
+    time_str = "{:02d}:{:02d}".format(minutes, seconds)
+    canvas.itemconfig(timer_label, text=time_str)
+    if count > 0:
+        window.after(10, countdown, count - 1)
+    else:
+        if is_work:
+            reps += 1
+        is_work = not is_work
+        start_timer()
+
 
 # ---------------------------- UI SETUP ------------------------------- #
 window = Tk()
 window.title("Pomodoro Timer")
 window.config(padx=100, pady=50, bg=YELLOW)
 
-timer_label = Label(text="Timer", font=(FONT_NAME, 35, "bold"), bg=YELLOW, fg=GREEN)
-timer_label.grid(column=1, row=0)
+timer_title = Label(text="Timer", font=(FONT_NAME, 25, "bold"), bg=YELLOW, fg=GREEN)
+timer_title.grid(column=1, row=0)
 
 tomato_img = PhotoImage(file="tomato.png")
 canvas = Canvas(width=200, height=224, bg=YELLOW, highlightthickness=0)
 canvas.create_image(100, 112, image=tomato_img)
-canvas.create_text(103, 130, text="00:00", fill="white", font=(FONT_NAME, 35, "bold"))
+timer_label = canvas.create_text(103, 130, text="00:00", fill="white", font=(FONT_NAME, 35, "bold"))
 canvas.grid(column=1, row=1)
 
-start_btn = Button(text="Start", highlightbackground=YELLOW, command=start)
+start_btn = Button(text="Start", highlightbackground=YELLOW, command=start_timer)
 start_btn.grid(column=0, row=2)
 
-reset_btn = Button(text="Reset", highlightbackground=YELLOW, command=reset)
+reset_btn = Button(text="Reset", highlightbackground=YELLOW, command=reset_timer)
 reset_btn.grid(column=2, row=2)
 
 check_label = Label(text="✔", font=(FONT_NAME, 35, "bold"), bg=YELLOW, fg=GREEN)
