@@ -6,9 +6,9 @@ RED = "#e7305b"
 GREEN = "#9bdeac"
 YELLOW = "#f7f5dd"
 FONT_NAME = "Courier"
-WORK_MIN = 5
-SHORT_BREAK_MIN = 3
-LONG_BREAK_MIN = 4
+WORK_MIN = 25
+SHORT_BREAK_MIN = 5
+LONG_BREAK_MIN = 20
 
 is_work = True
 reps = 0
@@ -49,7 +49,7 @@ def countdown(count):
     canvas.itemconfig(timer_label, text=time_str)
 
     if count > 0:
-        timer = window.after(10, countdown, count - 1)
+        timer = window.after(1000, countdown, count - 1)
     elif reps == 4:
         timer_title.config(text="Completed!", fg=GREEN)
     else:
