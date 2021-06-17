@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import messagebox as mb
 import random
+import pyperclip
 
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
@@ -17,22 +18,17 @@ def generate_pass():
 
     password_list = []
 
-    for char in range(nr_letters):
-        password_list.append(random.choice(letters))
+    pass_letters = [random.choice(letters) for _ in range(nr_letters)]
+    pass_symbols = [random.choice(symbols) for _ in range(nr_symbols)]
+    pass_numbers = [random.choice(numbers) for _ in range(nr_numbers)]
 
-    for char in range(nr_symbols):
-        password_list += random.choice(symbols)
-
-    for char in range(nr_numbers):
-        password_list += random.choice(numbers)
-
+    password_list = pass_letters + pass_symbols + pass_numbers
     random.shuffle(password_list)
 
-    password = ""
-    for char in password_list:
-        password += char
+    password = "".join(password_list)
 
-    print(f"Your password is: {password}")
+    password_input.delete(0, END)
+    password_input.insert(0, password)
 
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
@@ -80,8 +76,7 @@ password_label.grid(column=0, row=3)
 website_input = Entry(width=35, )
 website_input.focus()
 username_input = Entry(width=35)
-username_input.insert(0, "email@email.com"
-                         "")
+username_input.insert(0, "email@email.com")
 password_input = Entry(width=18)
 # - Positions
 website_input.grid(column=1, row=1, columnspan=2)
@@ -89,7 +84,7 @@ username_input.grid(column=1, row=2, columnspan=2)
 password_input.grid(column=1, row=3)
 
 # Buttons
-password_generate_btn = Button(width=13, text="Generate Password")
+password_generate_btn = Button(width=13, text="Generate Password", command=generate_pass)
 add_btn = Button(width=35, text="Add", command=save_to_file)
 # - Positions
 password_generate_btn.grid(column=2, row=3)
