@@ -1,3 +1,4 @@
+import io
 from tkinter import *
 from tkinter import messagebox as mb
 import random
@@ -49,12 +50,20 @@ def save_to_file():
         is_ok = mb.askyesno("Warning!", message="Ok to save the new password?")
 
         if is_ok:
-            with open("data.json", mode="w") as data_file:
-                json.dump(new_login, data_file, indent=4)
+            try:
+                with open("data.json", mode="r") as data_file:
+                    data = json.load(data_file)
+                    data.update(new_login)
+            except FileNotFoundError:
+                with open("data.json", mode="w") as new_data_file:
+                    json.dump(new_login, new_data_file, indent=4)
+            else:
+                with open("data.json", mode="w") as data_file:
+                    json.dump(data, data_file, indent=4)
 
-                website_input.delete(0, END)
-                website_input.focus()
-                password_input.delete(0, END)
+            website_input.delete(0, END)
+            website_input.focus()
+            password_input.delete(0, END)
         else:
             website_input.focus()
     else:
