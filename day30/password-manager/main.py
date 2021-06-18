@@ -61,9 +61,9 @@ def save_to_file():
                 with open("data.json", mode="w") as data_file:
                     json.dump(data, data_file, indent=4)
 
-            website_input.delete(0, END)
-            website_input.focus()
-            password_input.delete(0, END)
+                website_input.delete(0, END)
+                website_input.focus()
+                password_input.delete(0, END)
         else:
             website_input.focus()
     else:
