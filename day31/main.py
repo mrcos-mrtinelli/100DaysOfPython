@@ -1,8 +1,15 @@
 from tkinter import *
+import pandas
 
-BG_COLOR = "#B1DDC6"
-FONT = "Arial"
-FONT_BG = "#FFFFFF"
+BG_COLOR = '#B1DDC6'
+FONT_BG = '#FFFFFF'
+FONT = 'Arial'
+
+# ===============
+#   READ FILE
+# ===============
+filepath = 'data/french_words.csv'
+data = pandas.read_csv(filepath)
 
 
 # ===============
