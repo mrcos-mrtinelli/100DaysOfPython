@@ -70,6 +70,23 @@ def save_to_file():
         mb.showinfo(title="Error!", message="Please fill out all fields.")
 
 
+# ---------------------------- SEARCH PASSWORD ------------------------------- #
+def search_pass():
+    website = website_input.get()
+    if len(website) > 0:
+        try:
+            with open("data.json", mode="r") as data_file:
+                data = json.load(data_file)
+                if website in data:
+                    username = data[website]["username"]
+                    password = data[website]["password"]
+                    mb.showinfo(message=f"username: {username}\npassword: {password}")
+                else:
+                    mb.showinfo(message="Password not found.")
+        except FileNotFoundError:
+            print("no file")
+
+
 # ---------------------------- UI SETUP ------------------------------- #
 w = Tk()
 w.config(padx=50, pady=50)
@@ -101,7 +118,7 @@ username_input.grid(column=1, row=2, columnspan=2, sticky="w")
 password_input.grid(column=1, row=3, sticky="w")
 
 # Buttons
-search = Button(width=15, text="Get Password")
+search = Button(width=15, text="Get Password", command=search_pass)
 password_generate_btn = Button(width=15, text="Generate Password", command=generate_pass)
 add_btn = Button(width=35, text="Add", command=save_to_file)
 # - Positions
