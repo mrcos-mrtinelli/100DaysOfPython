@@ -1,7 +1,6 @@
 import requests
 
-APP_ID = ""
-APP_KEY = ""
+
 BASE_URL = "https://trackapi.nutritionix.com"
 HEADER = {
     "x-app-id": APP_ID,
@@ -15,3 +14,4 @@ json_query = {"query":input("Enter your exercise: ")}
 response = requests.post(url=full_url,json=json_query, headers=HEADER)
 response.raise_for_status()
 print(response.text)
+
