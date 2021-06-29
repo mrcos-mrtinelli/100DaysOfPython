@@ -24,7 +24,7 @@ class FlightSearch:
         self.data = r.json()
         return self.data['locations'][0]['code']
 
-    def get_flight(self):
+    def get_flights(self):
         r = requests.get(
             url=f'{TEQUILA_BASE_URL}/v2/search',
             params=self.flight_query,
@@ -33,5 +33,9 @@ class FlightSearch:
         r.raise_for_status()
         flights = r.json()['data']
 
-        if len(flights) > 0:
+        if len(flights) > 0 and flights[0] is not None:
             return flights[0]
+        else:
+            print(f"No flights available to {self.flight_query['fly_to']} "
+                  f"at max price of {self.flight_query['price_to']}")
+            return None

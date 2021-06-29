@@ -5,8 +5,8 @@ class FlightData:
         self.nights_in_dst_from = 6
         self.nights_in_dst_to = 27
         self.max_stopovers = 0
-        self.price_to = price_to
         self.curr = "GBP"
+        self.price_to = price_to
         self.fly_from_code = fly_from_code
         self.fly_to_code = fly_to_code
         self.date_from = date_from
