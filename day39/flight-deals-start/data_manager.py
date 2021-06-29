@@ -21,17 +21,24 @@ class DataManager:
             self.data = data['destinations']
             return self.data
 
-    def update_row(self):
-        for row in self.data:
-            new_data = {
-                "destination": {
-                    "iataCode": row['iataCode']
-                }
-            }
-            response = requests.put(
-                url=f'{SHEETY_BASE_URL}/{row["id"]}',
-                json=new_data,
-                headers=credentials.SHEETY_HEADERS
-            )
-            response.raise_for_status()
+    def update_rows(self, row_ids):
+        for row_id in row_ids:
+            for row in self.data:
+                if row['id'] == row_id:
+                    body = {
+                        "destination": {
+                            "iataCode": row['iataCode']
+                        }
+                    }
+                    response = requests.put(
+                        url=f'{SHEETY_BASE_URL}/{row["id"]}',
+                        json=body,
+                        headers=credentials.SHEETY_HEADERS
+                    )
+                    response.raise_for_status()
 
+    def needs_update(self):
+        for row in self.data:
+            if row['iataCode'] == "":
+                return True
+        return False
