@@ -35,7 +35,7 @@ songs = []
 #         }
 #     )
 
-scope = "user-library-read"
+scope = 'playlist-modify-private'
 
 sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
     client_id=credentials.SPOTIFY['app_id'],
@@ -44,11 +44,5 @@ sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
     scope=scope
 ))
 
-playlists = sp.user_playlists('spotify')
-while playlists:
-    for i, playlist in enumerate(playlists['items']):
-        print("%4d %s %s" % (i + 1 + playlists['offset'], playlist['uri'],  playlist['name']))
-    if playlists['next']:
-        playlists = sp.next(playlists)
-    else:
-        playlists = None
+current_user = sp.current_user()
+print(current_user['id'])
