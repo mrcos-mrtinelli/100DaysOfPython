@@ -22,7 +22,7 @@ price_float = float(price_str[1:])
 
 if price_float < 270.00:
     print(f"Currently selling at a discount: {price_str} Buy now!")
-    # send email 
+    # send email
 else:
     print("something went wrong.")
 
